@@ -116,15 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Set PS1 to display branche name
-parse_git_branch() {
-	    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
-	}
+# Set PS1 to display specific prompt when in Docker mode
 if [[ ! $(cat /proc/1/sched | head -n 1 | grep systemd) ]]
 then
     PS1="🐳  \[\033[1;36m\]\h \[\033[1;34m\]\W\[\033[0;35m\] \[\033[1;36m\]$ \[\033[0m\]"
-else
-    PS1="\n\[\e[32m\]\u@\h \[\e[34m\]\W\[\e[33m\]\$(parse_git_branch)\[\e[00m\] \$ "
 fi
 export PS1
 
